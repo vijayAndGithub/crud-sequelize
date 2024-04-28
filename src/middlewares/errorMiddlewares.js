@@ -3,8 +3,10 @@ const config = require("../config/config")
 const httpStatus = require("http-status")
 
 const notFound = (req, res, next) => {
-    res.status(404).json({
+    const statusCode = httpStatus.NOT_FOUND
+    res.status(statusCode).json({
         success: false,
+        code: statusCode,
         message: 'Not Found'
     })
 }
@@ -16,6 +18,7 @@ const errorHandler = (err, req, res, next) => {
 
     const response = {
         success: false,
+        code: statusCode,
         message: err.message || "Internal server error",
         stack: config.node_env === "production" ? null : err.stack,
     }
