@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const userRoutes = require('./userRoutes.js')
+const userRoutes = require('./userRoutes')
+const authRoutes = require('./authRoutes')
 
 /* GET home page. */
 const routes = [
   {
     path: "/user",
     route: userRoutes
-  }
+  },
+  {
+    path: "/auth",
+    route: authRoutes
+  },
 ]
 
 routes.forEach((routeObj) => {
