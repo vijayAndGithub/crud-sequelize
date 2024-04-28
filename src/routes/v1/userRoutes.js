@@ -1,20 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../../controllers/userController')
-
-/* GET home page. */
-// router.get('/', function (req, res, next) {
-//     res.sendStatus(200)
-//     // res.status(200)
-// });
+const validateRequest = require('../../middlewares/validationMiddleware')
+const userValidations = require('../../validations/userValidations')
 
 router.route('/')
-    .post(userController.createUser)
+    .post(
+        validateRequest(userValidations.createUser),
+        userController.createUser)
     .get(userController.listUsers)
 
 router.route('/:userId')
-    .put(userController.updateUser)
-    .get(userController.readUser)
-    .delete(userController.deleteUser)
+    .put(
+        validateRequest(userValidations.updateUser),
+        userController.updateUser)
+    .get(
+        validateRequest(userValidations.readUser),
+        userController.readUser)
+    .delete(
+        validateRequest(userValidations.deleteUser),
+        userController.deleteUser)
 
 module.exports = router;
