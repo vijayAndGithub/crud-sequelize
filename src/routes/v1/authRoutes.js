@@ -12,6 +12,14 @@ router.route('/login')
     .post(
         validateRequest(authValidations.login),
         authControllers.login)
+router.route('/forgot-password')
+    .post(
+        validateRequest(authValidations.forgotPassword),
+        authControllers.forgotPassword)
+router.route('/reset-password')
+    .post(
+        validateRequest(authValidations.resetPassword),
+        authControllers.resetPassword)
 
 
 module.exports = router;

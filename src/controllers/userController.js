@@ -51,10 +51,23 @@ const readUser = asyncHandler(async (req, res) => {
     sendSuccessResponse(httpStatus.OK, res, "Successfully fetched user", existingUser)
 })
 const listUsers = asyncHandler(async (req, res) => {
-    //check if exists or not
-    const users = await db.User.findAll()
+    //pagination
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 10
+    const skip = (page - 1) * limit
 
-    sendSuccessResponse(httpStatus.OK, res, "Successfully fetched users", users)
+    const users = await db.User.findAll({
+        offset: skip,
+        limit,
+    })
+
+    const response = {
+        results: users,
+        page,
+        limit
+    }
+
+    sendSuccessResponse(httpStatus.OK, res, "Successfully fetched users", response)
 })
 const deleteUser = asyncHandler(async (req, res) => {
     const { userId } = req.params

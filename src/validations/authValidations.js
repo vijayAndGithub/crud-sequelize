@@ -15,9 +15,24 @@ const login = {
         password: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9@#]{8,30}$')),
     }),
 }
+const forgotPassword = {
+    body: Joi.object({
+        email: Joi.string().email().required(),
+    }),
+}
+const resetPassword = {
+    query: Joi.object({
+        token: Joi.string().required(),
+    }),
+    body: Joi.object({
+        newPassword: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9@#]{8,30}$')),
+    }),
+}
 
 
 module.exports = {
     signup,
     login,
+    forgotPassword,
+    resetPassword,
 }

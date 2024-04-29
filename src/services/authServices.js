@@ -17,7 +17,21 @@ const generateJwtTokens = async (JwtData) => {
         console.log('error generating token', error)
     }
 }
+const getToken = async (JwtData, expiresIn) => {
+    try {
+
+        const token = jwt.sign(JwtData, config.jwt.secret, { expiresIn });
+
+        return {
+            token,
+        }
+
+    } catch (error) {
+        console.log('error generating token', error)
+    }
+}
 
 module.exports = {
     generateJwtTokens,
+    getToken,
 }
